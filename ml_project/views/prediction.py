@@ -5,14 +5,15 @@ import os
 import base64
 import plotly.graph_objects as go
 import requests
-import json
-import time
+from views.utils import get_logo_path
+from config import CO2_FACTOR, PRIX_KWH, PORT_API_CONSO, PORT_API_DPE
+
 
 # --- CONFIGURATION DES APIs ---
-API_URL_DPE = "http://127.0.0.1:5001/predict_dpe"
-API_URL_CONSO = "http://127.0.0.1:5000/predict_conso"
-API_HEALTH_DPE = "http://127.0.0.1:5001/health"
-API_HEALTH_CONSO = "http://127.0.0.1:5000/health"
+API_URL_DPE = f"http://127.0.0.1:{PORT_API_DPE}/predict_dpe"
+API_URL_CONSO = f"http://127.0.0.1:{PORT_API_CONSO}/predict_conso"
+API_HEALTH_DPE = f"http://127.0.0.1:{PORT_API_DPE}/health"
+API_HEALTH_CONSO = f"http://127.0.0.1:{PORT_API_CONSO}/health"
 
 # Mappings DPE
 CLASSES_DPE_MAPPING = ["G", "F", "E", "D", "C", "B", "A"]
@@ -25,7 +26,6 @@ COLORS_DPE = [
     "#27ae60",
     "#2ecc71",
 ]
-CO2_FACTOR = 0.25
 
 
 def check_api_health():
@@ -121,7 +121,7 @@ def create_conso_gauge(conso_pred):
 
 def show_page():
     # Logo et en-tête
-    logo_path = os.path.join(os.path.dirname(__file__), "..", "img", "Logo.png")
+    logo_path = get_logo_path()
     try:
         with open(logo_path, "rb") as f:
             logo_base64 = base64.b64encode(f.read()).decode()
@@ -434,13 +434,12 @@ def show_page():
                     )
 
                 # Coût estimé
-                prix_kwh = 0.18  # €/kWh moyen
-                cout_annuel = conso_pred * prix_kwh
+                cout_annuel = conso_pred * PRIX_KWH
 
                 st.info(
                     f"""
                 **💶 Coût énergétique estimé :** {cout_annuel:,.0f} €/an
-                *Basé sur un prix moyen de {prix_kwh} €/kWh*
+                *Basé sur un prix moyen de {PRIX_KWH} €/kWh*
                 """
                 )
 

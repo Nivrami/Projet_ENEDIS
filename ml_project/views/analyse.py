@@ -4,15 +4,14 @@ import base64, os
 import plotly.express as px
 import numpy as np
 import plotly.graph_objects as go
+from views.utils import RENAME_MAP, get_logo_path
+from config import N_SAMPLE_ANALYSE, MAX_CONSO_THRESHOLD
+
 
 # Constantes pour le chemin de données
 DATA_FILENAME = "df_logements.parquet"
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 LOCAL_PARQUET_PATH = os.path.join(CURRENT_DIR, "..", "Data", DATA_FILENAME)
-
-# Taille de l'échantillon pour les analyses
-N_SAMPLE_ANALYSE = 50000
-MAX_CONSO_THRESHOLD = 30000
 
 
 @st.cache_data
@@ -24,13 +23,6 @@ def load_data_and_preprocess():
         df = pd.read_parquet(LOCAL_PARQUET_PATH)
         df.columns = df.columns.str.strip()
 
-        # --- RENOMMAGE SÉCURISÉ DES COLONNES CRITIQUES ---
-        RENAME_MAP = {
-            "surface_habitable_logement": "surface_m2",
-            "etiquette_dpe": "classe_dpe",
-            "conso_5_usages_ef": "conso_energie_kwh",
-        }
-
         # Appliquer le renommage uniquement si la colonne existe
         df.rename(
             columns={k: v for k, v in RENAME_MAP.items() if k in df.columns},
@@ -38,19 +30,12 @@ def load_data_and_preprocess():
         )
 
         # --- SÉCURISATION ---
-        if "classe_dpe" not in df.columns:
-            df["classe_dpe"] = np.random.choice(
-                ["A", "B", "C", "D", "E", "F", "G"], len(df)
-            )
+        required_columns = ["classe_dpe", "conso_energie_kwh", "type_batiment", "surface_m2"]
+        missing = [col for col in required_columns if col not in df.columns]
+        if missing:
+            st.error(f"Colonnes manquantes dans le dataset : {', '.join(missing)}")
+            return
 
-        if "conso_energie_kwh" not in df.columns:
-            df["conso_energie_kwh"] = np.random.uniform(5000, 30000, len(df))
-
-        if "type_batiment" not in df.columns:
-            df["type_batiment"] = np.random.choice(["Appartement", "Maison"], len(df))
-
-        if "surface_m2" not in df.columns:
-            df["surface_m2"] = np.random.uniform(30, 150, len(df))
 
         # --- FILTRAGE DES VALEURS ABERRANTES ---
         df["conso_energie_kwh"] = pd.to_numeric(
@@ -103,7 +88,7 @@ def load_data_and_preprocess():
 
 def show_page():
 
-    logo_path = os.path.join(os.path.dirname(__file__), "..", "img", "Logo.png")
+    logo_path = get_logo_path()
     try:
         with open(logo_path, "rb") as f:
             logo_base64 = base64.b64encode(f.read()).decode()

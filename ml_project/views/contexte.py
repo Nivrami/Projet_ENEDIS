@@ -5,6 +5,9 @@ import base64
 import os
 import numpy as np
 import datetime as dt
+from views.utils import RENAME_MAP, get_logo_path
+from config import N_SAMPLE
+
 
 # Constantes pour le chemin de données
 DATA_FILENAME = "df_logements.parquet"
@@ -12,9 +15,6 @@ CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Chemin corrigé
 LOCAL_PARQUET_PATH = os.path.join(CURRENT_DIR, "..", "Data", DATA_FILENAME)
-
-# Taille de l'échantillon pour la rapidité
-N_SAMPLE = 10000
 
 
 @st.cache_data
@@ -30,13 +30,6 @@ def load_data_and_stratify():
         # CHARGEMENT du fichier Parquet
         df = pd.read_parquet(LOCAL_PARQUET_PATH)
         df.columns = df.columns.str.strip()
-
-        # --- RENOMMAGE SÉCURISÉ DES COLONNES CRITIQUES ---
-        RENAME_MAP = {
-            "surface_habitable_logement": "surface_m2",
-            "conso_5_usages_ef": "conso_energie_kwh",
-            "etiquette_dpe": "classe_dpe",
-        }
 
         # Appliquer le renommage uniquement si la colonne existe
         df.rename(
@@ -88,7 +81,7 @@ def show_page():
         st.error("❌ Impossible de charger les données")
         return
 
-    logo_path = os.path.join(os.path.dirname(__file__), "..", "img", "Logo.png")
+    logo_path = get_logo_path()
     try:
         with open(logo_path, "rb") as f:
             logo_base64 = base64.b64encode(f.read()).decode()

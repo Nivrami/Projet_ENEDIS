@@ -5,14 +5,14 @@ import os
 import folium
 from folium.plugins import MarkerCluster
 import streamlit.components.v1 as components
+from views.utils import RENAME_MAP, get_logo_path
+from config import N_MAX_POINTS
+
 
 # Constantes pour le chemin de données
 DATA_FILENAME = "df_logements.parquet"
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 LOCAL_PARQUET_PATH = os.path.join(CURRENT_DIR, "..", "Data", DATA_FILENAME)
-
-# Taille maximale pour la cartographie
-N_MAX_POINTS = 50000
 
 
 @st.cache_data
@@ -25,10 +25,6 @@ def load_data():
         df.columns = df.columns.str.strip()
 
         # --- RENOMMAGE SÉCURISÉ DES COLONNES CRITIQUES ---
-        RENAME_MAP = {
-            "etiquette_dpe": "classe_dpe",
-            "conso_5_usages_ef": "conso_energie_kwh",
-        }
         df.rename(
             columns={k: v for k, v in RENAME_MAP.items() if k in df.columns},
             inplace=True,

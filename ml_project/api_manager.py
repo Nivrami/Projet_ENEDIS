@@ -8,6 +8,7 @@ import requests
 import signal
 import logging
 from typing import List, Optional
+from config import PORT_API_CONSO, PORT_API_DPE
 
 # Configuration du logging
 logging.basicConfig(
@@ -28,13 +29,13 @@ class APIManager:
         self.api_configs = [
             {
                 "file": "API_Lineaire_Reg.py",
-                "port": 5000,
+                "port": PORT_API_CONSO,
                 "health_endpoint": "/health",
                 "name": "API Consommation",
             },
             {
                 "file": "API_Random_Forest.py",
-                "port": 5001,
+                "port": PORT_API_DPE,
                 "health_endpoint": "/health",
                 "name": "API DPE",
             },

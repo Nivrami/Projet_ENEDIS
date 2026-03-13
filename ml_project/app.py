@@ -3,7 +3,7 @@ import base64
 import streamlit as st
 from streamlit_option_menu import option_menu
 from views import contexte, analyse, cartographie, apropos, prediction
-import requests
+
 
 # ✅ Version avec APIs réelles
 print("🚀 Démarrage de l'application avec APIs...")

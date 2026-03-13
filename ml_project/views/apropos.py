@@ -1,11 +1,13 @@
 import streamlit as st
 import os
 import base64
+from views.utils import get_logo_path
+
 
 
 def show_page():
 
-    logo_path = os.path.join(os.path.dirname(__file__), "..", "img", "Logo.png")
+    logo_path = get_logo_path()
     with open(logo_path, "rb") as f:
         logo_base64 = base64.b64encode(f.read()).decode()
 
