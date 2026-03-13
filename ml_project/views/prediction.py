@@ -189,10 +189,10 @@ def show_page():
         1. **Ouvrez deux terminaux et démarrez les APIs :**
         ```bash
         # Terminal 1 - API Consommation (Port 5000)
-        python API_Lineaire_Reg.py
-        
-        # Terminal 2 - API DPE (Port 5001)  
-        python API_Random_Forest.py
+        python api_linear_regression.py
+
+        # Terminal 2 - API DPE (Port 5001)
+        python api_random_forest.py
         ```
         
         2. **Attendez les messages de confirmation :**
@@ -447,7 +447,7 @@ def show_page():
                 save_path = os.path.join(
                     os.path.dirname(__file__),
                     "..",
-                    "Data",
+                    "data",
                     "historique_predictions.csv",
                 )
 

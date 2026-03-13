@@ -1,86 +1,123 @@
-# m2_enedis
-Enedis nous sollicite en vue d'évaluer l'impact de classe de Diagnostic de Performance Energétique (DPE) sur la consommations éléctriques  de logements. 
+# Projet_ENEDIS — EcoScan Dashboard
 
-## OBJECTIFS 
+Dashboard interactif de prédiction et visualisation de la performance énergétique des logements français (DPE).
 
-### 1. Analyse des performances énergétiques des bâtiments (DPE) :
+> Projet réalisé dans le cadre du Master 2 SISE (Statistique et Informatique pour la Science des données).
 
-Analyser les caractéristiques des bâtiments (année de construction, superficie, etc.) et leurs performances énergétiques (DPE) afin d’identifier les facteurs influençant la consommation d’énergie.
+---
 
-### 2. Modèle de prédiction de la classe énergétique (DPE) :
+## Aperçu
 
-Concevoir un modèle permettant de prédire la classe énergétique d’un bâtiment (A, B, C, D, E ou F) en fonction de ses caractéristiques.
+![Page Contexte](docs/Eval1.jpg)
+![Page Prédiction](docs/Eval2.jpg)
 
-### 3. Modèle de prédiction de la consommation d’énergie :
+---
 
-Développer un modèle permettant de prédire la consommation énergétique finale totale d’un bâtiment, en kWh/hef/an, pour le type d’énergie considéré. L’application utilise un modèle de régression pour effectuer ces prédictions.
+## Fonctionnalités
 
+- **Analyse descriptive** : graphiques interactifs sur la consommation, le coût énergétique et les émissions CO2
+- **Cartographie** : carte interactive des logements par classe DPE et période de construction
+- **Prédiction double** :
+  - Consommation énergétique (kWh/an) via régression linéaire
+  - Classe DPE (A→G) via Random Forest
+- **Historique** : sauvegarde des prédictions effectuées
+- **Conteneurisé** : Dockerfile inclus pour un déploiement sans configuration
 
-## INSTALLATION 
+---
 
-L'installation requiert :
-- Python 3.8 (ou splus récent)
-- Un éditeur de code
-- Un environnement virtuel (recommandé) : voir le fichier requirements.txt
+## Architecture
 
-### Marche à suivre
-
-1. Lancer l'application :
-
-2. Docker :
-```bash
-docker pull miligp12/ml-project-streamlit:latest
 ```
-et lancer : 
-```bash
-docker run -d -p 8501:8501 miligp12/ml-project-streamlit:latest
+Interface               APIs Flask             Modèles ML
+────────────────        ──────────────         ──────────────────
+                        Port 5000         ───► Régression Linéaire
+Streamlit (app.py) ────►
+                        Port 5001         ───► Random Forest (DPE)
 ```
-3. Lancer sur StreamlitCloud :
-   
-https://m2enedis-u6bk7ax22n5cevhr2y9chf.streamlit.app/
 
-Pour des informations complémentaires, vous référez à la rubrique Documentation plus bas.
+---
 
+## Installation
 
-## UTILISATION
+### Prérequis
 
-Une fois installée, l'application est prête à l'emploi. Ses principales fonctionnalités sont :
+- Python 3.8+
+- (Optionnel) Docker
 
-- Prédiction de la consommation énergétique : Saisissez les caractéristiques d'un bâtiment pour prédire sa consommation énergétique grâce aux modèles d'apprentissage automatique pré-entraînés.
+### Lancement rapide
 
-- Prédiction du DPE : Prédiser le diagnostic de performance énergétique (DPE) d'un bâtiment.
+```bash
+# Cloner le repo
+git clone https://github.com/Nivrami/Projet_ENEDIS.git
+cd Projet_ENEDIS
 
-- Carte interactive : Visualiser et explorer les données relatives aux bâtiments et à leurs profils énergétiques sur une carte du département du Rhône (69).
+# Installer les dépendances
+pip install -r ml_project/requirements.txt
 
-- Graphiques et tableaux : Explorer différentes informations grâce à des graphiques et des tableaux interactifs.
+# Lancer l'application
+cd ml_project
+streamlit run app.py
+```
 
-## PACKAGES 
+### Avec Docker
 
-La liste des packages est disponible dans le fichier requirements.txt et inclut des bibliothèques telles que :
+```bash
+cd ml_project
+docker-compose up --build
+```
 
-- Streamlit : pour la création d’applications web interactives.
+Puis ouvrir [http://localhost:8501](http://localhost:8501).
 
-- Plotly : pour la création de graphiques et de tracés interactifs.
+---
 
-- Scikit-learn : pour les modèles d’apprentissage automatique.
+## Modèles
 
-- Pandas, NumPy : pour la manipulation et le traitement des données. 
+Les fichiers modèles (`.pkl`, `.joblib`) ne sont pas versionnés. Les placer dans `ml_project/models/` avant de lancer l'application.
 
-Pour installer les dépendances, il suffit d’exécuter la commande suivante :
+---
 
-## MODELES
+## Structure du projet
 
-Vous pouvez les télécharger à partir du lien suivant : [modèles](https://github.com/miligp/m2_enedis/tree/main/Modeles)
+```
+Projet_ENEDIS/
+├── README.md
+├── docs/                          # Documentation et rapports
+├── notebooks/                     # Notebooks d'exploration et modélisation
+│   ├── 01_nettoyage.ipynb
+│   ├── 02_prediction_etiquette.ipynb
+│   ├── 03_regression_lineaire.ipynb
+│   └── 04_logistic_regression.ipynb
+└── ml_project/                    # Application de production
+    ├── app.py                     # Point d'entrée Streamlit
+    ├── config.py                  # Constantes et configuration
+    ├── api_manager.py             # Gestionnaire des APIs
+    ├── api_linear_regression.py   # API régression linéaire (port 5000)
+    ├── api_random_forest.py       # API Random Forest (port 5001)
+    ├── start_app.py               # Script de démarrage
+    ├── requirements.txt
+    ├── Dockerfile
+    ├── models/                    # Modèles ML (non versionnés)
+    ├── data/                      # Données (non versionnées)
+    ├── img/
+    └── views/                     # Pages Streamlit
+        ├── contexte.py
+        ├── analyse.py
+        ├── cartographie.py
+        ├── prediction.py
+        ├── apropos.py
+        └── utils.py
+```
 
+---
 
-## DOCUMENTATION
+## Documentation
 
-Vous pouvez vous référer au document ce trouvant sur ce lien : [documentation](https://github.com/miligp/m2_enedis/blob/main/Documentation_Technique.md)
+La documentation technique et fonctionnelle est disponible dans [docs/](docs/).
 
-## 📋 Cahiers des Charges
+---
 
-###  Cahier des charges 1/2
-![Spécifications fonctionnelles et techniques - Partie 1](./Eval1.jpg)
+## Équipe
 
-### Cahier des charges 2/2  
-![Pack Standard, Intermédiaire et Expert - Partie 2](./Eval2.jpg)
+- Miléna GORDIEN-PIQUET
+- Marvin CURTY
+- Mazilda ZEHRAOUI

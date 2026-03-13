@@ -15,7 +15,7 @@ app_dpe = Flask(__name__)
 CURRENT_DIR = pathlib.Path(__file__).parent
 
 # 2. DÉFINIR LE RÉPERTOIRE CONTENANT LES MODÈLES
-MODELS_DIR = CURRENT_DIR
+MODELS_DIR = CURRENT_DIR / "models"
 
 # Les chemins absolus des fichiers de modèles
 MODEL_FILE = MODELS_DIR / "random_forest_dpe_final_weighted.joblib"

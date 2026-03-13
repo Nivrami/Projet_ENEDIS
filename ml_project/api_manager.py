@@ -28,13 +28,13 @@ class APIManager:
         self.processes = []
         self.api_configs = [
             {
-                "file": "API_Lineaire_Reg.py",
+                "file": "api_linear_regression.py",
                 "port": PORT_API_CONSO,
                 "health_endpoint": "/health",
                 "name": "API Consommation",
             },
             {
-                "file": "API_Random_Forest.py",
+                "file": "api_random_forest.py",
                 "port": PORT_API_DPE,
                 "health_endpoint": "/health",
                 "name": "API DPE",

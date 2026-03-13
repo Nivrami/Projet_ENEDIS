@@ -12,7 +12,7 @@ from config import N_MAX_POINTS
 # Constantes pour le chemin de données
 DATA_FILENAME = "df_logements.parquet"
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
-LOCAL_PARQUET_PATH = os.path.join(CURRENT_DIR, "..", "Data", DATA_FILENAME)
+LOCAL_PARQUET_PATH = os.path.join(CURRENT_DIR, "..", "data", DATA_FILENAME)
 
 
 @st.cache_data
@@ -59,9 +59,10 @@ def load_data():
         df["tooltip_info"] = (
             "Classe DPE: "
             + df["classe_dpe"].astype(str)
-            + "<br>"
-            + "Conso (kWh/an): "
+            + "<br>Conso (kWh/an): "
             + df["conso_energie_kwh"].fillna("N/A").astype(str)
+            + "<br>Période: "
+            + df["periode_construction"].astype(str)
         )
 
         return df.dropna(subset=["latitude", "longitude", "classe_dpe"]).copy()
@@ -120,6 +121,33 @@ def show_page():
         & (df["periode_construction"].isin(periode_filter))
     ]
 
+    # Légende des couleurs
+    col_leg1, col_leg2 = st.columns(2)
+
+    with col_leg1:
+        st.markdown("**Classe DPE :**")
+        dpe_colors = {
+            "A": ("#2ecc71", "Très performant"),
+            "B": ("#3498db", "Performant"),
+            "C": ("#f1c40f", "Assez performant"),
+            "D": ("#e67e22", "Peu performant"),
+            "E": ("#e74c3c", "Énergivore"),
+            "F": ("#c0392b", "Très énergivore"),
+            "G": ("#8e44ad", "Extrêmement énergivore"),
+        }
+        legend_html = "".join(
+            f"<span style='background:{color}; padding:2px 10px; border-radius:4px; margin-right:6px;'></span> <b>{cls}</b> — {label}<br>"
+            for cls, (color, label) in dpe_colors.items()
+        )
+        st.markdown(legend_html, unsafe_allow_html=True)
+
+    with col_leg2:
+        st.markdown("**Période de construction :**")
+        st.markdown(
+            "Les périodes sont filtrables via le menu ci-dessus. "
+            "Survolez un point pour voir sa classe DPE, sa consommation et sa période de construction."
+        )
+
     # 2. Création de la carte Folium (L'implémentation de la "CarteZoom" est ici)
 
     # Calculer le centre de la carte (moyenne des coordonnées filtrées)
@@ -142,13 +170,13 @@ def show_page():
 
         # Ajout du marqueur au cluster
         folium.CircleMarker(
-            location=[row["latitude"], row["longitude"]],
+            location=[row.latitude, row.longitude],
             radius=5,
-            popup=row["tooltip_info"],
-            tooltip=row["tooltip_info"],
-            color=row["color"],
+            popup=row.tooltip_info,
+            tooltip=row.tooltip_info,
+            color=row.color,
             fill=True,
-            fill_color=row["color"],
+            fill_color=row.color,
             fill_opacity=0.8,
         ).add_to(marker_cluster)
 

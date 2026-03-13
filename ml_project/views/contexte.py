@@ -14,7 +14,7 @@ DATA_FILENAME = "df_logements.parquet"
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Chemin corrigé
-LOCAL_PARQUET_PATH = os.path.join(CURRENT_DIR, "..", "Data", DATA_FILENAME)
+LOCAL_PARQUET_PATH = os.path.join(CURRENT_DIR, "..", "data", DATA_FILENAME)
 
 
 @st.cache_data
@@ -73,8 +73,8 @@ def load_data_and_stratify():
 
 
 def show_page():
-
-    df = load_data_and_stratify()
+    with st.spinner("Chargement des données..."):
+        df = load_data_and_stratify()
 
     # CORRECTION : Vérifier si df est None ou empty
     if df is None or df.empty:

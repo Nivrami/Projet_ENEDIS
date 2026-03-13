@@ -81,7 +81,7 @@ Les variables quantitatives qui seront utilisées dans les modèles de prédicti
 
 
     
-![png](rapport_1_bis_files/rapport_1_bis_9_1.png)
+![png](report_assets/rapport_1_bis_9_1.png)
     
 
 
@@ -106,7 +106,7 @@ Les variables quantitatives qui seront utilisées dans les modèles de prédicti
 
 
     
-![png](rapport_1_bis_files/rapport_1_bis_10_1.png)
+![png](report_assets/rapport_1_bis_10_1.png)
     
 
 
@@ -125,7 +125,7 @@ On cherche ici à construire un modèle permettant de prévoir la consommation �
 
 
     
-![png](rapport_1_bis_files/rapport_1_bis_12_0.png)
+![png](report_assets/rapport_1_bis_12_0.png)
     
 
 
@@ -187,7 +187,7 @@ Les résultats obtenus se trouvent ci-dessous :
 
 
     
-![png](rapport_1_bis_files/rapport_1_bis_17_0.png)
+![png](report_assets/rapport_1_bis_17_0.png)
     
 
 
@@ -327,7 +327,7 @@ Rapport de classification :
 
 Le modèle obtenu est satisfaisant avec un F1-Score moyen égal à 0.75, la matrice de confusion correspondante se trouve ci-après.
 
-![jpeg](rapport_1_bis_files/mat_confusion.jpeg)
+![jpeg](report_assets/mat_confusion.jpeg)
 
 #### 2. Régression logistique
 

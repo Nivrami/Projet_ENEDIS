@@ -11,7 +11,7 @@ from config import N_SAMPLE_ANALYSE, MAX_CONSO_THRESHOLD
 # Constantes pour le chemin de données
 DATA_FILENAME = "df_logements.parquet"
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
-LOCAL_PARQUET_PATH = os.path.join(CURRENT_DIR, "..", "Data", DATA_FILENAME)
+LOCAL_PARQUET_PATH = os.path.join(CURRENT_DIR, "..", "data", DATA_FILENAME)
 
 
 @st.cache_data
