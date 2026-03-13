@@ -172,8 +172,8 @@ def show_page():
         """,
         unsafe_allow_html=True,
     )
-
-    df = load_data_and_preprocess()
+    with st.spinner("Chargement des données..."):
+        df = load_data_and_preprocess()
 
     # Vérification que les données sont chargées
     if df is None or df.empty:

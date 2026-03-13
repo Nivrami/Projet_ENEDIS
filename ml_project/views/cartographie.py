@@ -90,8 +90,8 @@ def show_page():
     """,
         unsafe_allow_html=True,
     )
-
-    df = load_data()
+    with st.spinner("Chargement des données..."):
+        df = load_data()
 
     if df.empty:
         return
@@ -138,7 +138,7 @@ def show_page():
     # 3. Ajout des marqueurs groupés (MarkerCluster pour la performance)
     marker_cluster = MarkerCluster().add_to(m)
 
-    for idx, row in df_filtered.iterrows():
+    for row in df_filtered.itertuples(index=False):
 
         # Ajout du marqueur au cluster
         folium.CircleMarker(
