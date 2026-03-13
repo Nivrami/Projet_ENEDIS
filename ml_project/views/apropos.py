@@ -2,13 +2,15 @@ import streamlit as st
 import os
 import base64
 
+
 def show_page():
 
     logo_path = os.path.join(os.path.dirname(__file__), "..", "img", "Logo.png")
     with open(logo_path, "rb") as f:
         logo_base64 = base64.b64encode(f.read()).decode()
 
-    st.markdown(f"""
+    st.markdown(
+        f"""
         <div style='text-align:center;'>
             <img src='data:image/png;base64,{logo_base64}' width='180'>
             <h1 style='color:#2ecc71; font-size:42px; font-weight:900;'>
@@ -37,10 +39,13 @@ def show_page():
                 }}
             }}
         </style>
-    """, unsafe_allow_html=True)
+    """,
+        unsafe_allow_html=True,
+    )
 
     # Présentation du projet
-    st.markdown("""
+    st.markdown(
+        """
         <p style='color:var(--text-color-secondary); text-align:justify; max-width:900px; margin:auto; line-height:1.6;'>
             Ce projet a été développé dans le cadre du module <b>Machine Learning</b> du Master SISE — 
             Statistique et Informatique pour la Science des Données à l’Université Lumière Lyon 2.
@@ -62,10 +67,13 @@ def show_page():
             Ce travail met en avant les compétences en <b>data science</b>, 
             <b>visualisation de données</b> et <b>développement d’interfaces interactives</b> avec Streamlit.
         </p>
-    """, unsafe_allow_html=True)
+    """,
+        unsafe_allow_html=True,
+    )
 
-    # ÉQUIPE DU PROJET 
-    st.markdown("""
+    # ÉQUIPE DU PROJET
+    st.markdown(
+        """
         <h2 style='color:#2ecc71; text-align:center; font-weight:900; margin-top:50px;'>Équipe du projet</h2>
         <hr style='width:50%; margin:auto; border:1px solid var(--border-color); margin-bottom:40px;'>
         <style>
@@ -89,36 +97,48 @@ def show_page():
                 line-height:1.5;
             }}
         </style>
-    """, unsafe_allow_html=True)
+    """,
+        unsafe_allow_html=True,
+    )
 
     col1, col2, col3 = st.columns(3)
 
     with col1:
-        st.markdown("""
+        st.markdown(
+            """
             <div style='text-align:center;'>
                 <img class='team-avatar' src='https://cdn-icons-png.flaticon.com/512/4140/4140048.png' width='120'>
                 <div class='member-name'>Marvin Curty</div>
             </div>
-        """, unsafe_allow_html=True)
+        """,
+            unsafe_allow_html=True,
+        )
 
     with col2:
-        st.markdown("""
+        st.markdown(
+            """
             <div style='text-align:center;'>
                 <img class='team-avatar' src='https://cdn-icons-png.flaticon.com/512/4140/4140047.png' width='120'>
                 <div class='member-name'>Mazilda Zehraoui</div>
             </div>
-        """, unsafe_allow_html=True)
+        """,
+            unsafe_allow_html=True,
+        )
 
     with col3:
-        st.markdown("""
+        st.markdown(
+            """
             <div style='text-align:center;'>
                 <img class='team-avatar' src='https://cdn-icons-png.flaticon.com/512/4140/4140037.png' width='120'>
                 <div class='member-name'>Milena Gordien Piquet</div>
             </div>
-        """, unsafe_allow_html=True)
+        """,
+            unsafe_allow_html=True,
+        )
 
     # Technologies utilisées
-    st.markdown("""
+    st.markdown(
+        """
         <h2 style='color:#f39c12; text-align:center; font-weight:900; margin-top:60px;'>⚙️ Technologies utilisées</h2>
         <div style='text-align:center; margin-top:20px;'>
             <img src='https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' width='70'>
@@ -130,30 +150,36 @@ def show_page():
         <p style='color:var(--text-color-secondary); text-align:center; margin-top:15px;'>
             Python • Pandas • NumPy • Plotly • Streamlit
         </p>
-    """, unsafe_allow_html=True)
+    """,
+        unsafe_allow_html=True,
+    )
 
-   # Objectifs futurs
-    st.markdown("""
-    <h2 style='color:#f1c40f; text-align:center; font-weight:900; margin-top:50px;'>Objectifs futurs</h2>
-    <div style='color:var(--text-color-secondary); text-align:center; max-width:900px; margin:auto; line-height:1.6;'>
-        Les prochaines évolutions d'<b>EcoScan Dashboard</b> visent à renforcer ses capacités d'analyse et d'intelligence.
-        <br><br>
-        <div style='text-align:left; display:inline-block;'>
-            • Amélioration du modèle prédictif grâce à l'intégration de nouvelles variables issues de données ouvertes <br>
-            &nbsp;&nbsp;&nbsp;(température, climat, type de chauffage).<br>
-            • Actualisation automatique des données via une API pour maintenir les visualisations à jour en temps réel.<br>
-            • Réentraînement du modèle lorsque de nouvelles données sont disponibles afin d'améliorer la précision des prédictions.<br>
-            • Mise en ligne de la plateforme pour permettre un accès public et faciliter le partage des résultats.
+    # Objectifs futurs
+    st.markdown(
+        """
+        <h2 style='color:#f1c40f; text-align:center; font-weight:900; margin-top:50px;'>Objectifs futurs</h2>
+        <div style='color:var(--text-color-secondary); text-align:center; max-width:900px; margin:auto; line-height:1.6;'>
+            Les prochaines évolutions d'<b>EcoScan Dashboard</b> visent à renforcer ses capacités d'analyse et d'intelligence.
+            <br><br>
+            <div style='text-align:left; display:inline-block;'>
+                • Amélioration du modèle prédictif grâce à l'intégration de nouvelles variables issues de données ouvertes <br>
+                &nbsp;&nbsp;&nbsp;(température, climat, type de chauffage).<br>
+                • Actualisation automatique des données via une API pour maintenir les visualisations à jour en temps réel.<br>
+                • Réentraînement du modèle lorsque de nouvelles données sont disponibles afin d'améliorer la précision des prédictions.<br>
+                • Mise en ligne de la plateforme pour permettre un accès public et faciliter le partage des résultats.
+            </div>
+            <br><br>
+            À terme, <b>EcoScan</b> ambitionne de devenir un outil intelligent et connecté, 
+            capable de suivre en continu la performance énergétique des logements 
+            et d'accompagner les utilisateurs dans leurs décisions.
         </div>
-        <br><br>
-        À terme, <b>EcoScan</b> ambitionne de devenir un outil intelligent et connecté, 
-        capable de suivre en continu la performance énergétique des logements 
-        et d'accompagner les utilisateurs dans leurs décisions.
-    </div>
-""", unsafe_allow_html=True)
+    """,
+        unsafe_allow_html=True,
+    )
 
-    # Liens utiles 
-    st.markdown("""
+    # Liens utiles
+    st.markdown(
+        """
         <h2 style='color:#3498db; text-align:center; font-weight:900; margin-top:50px;'>🌐 Liens utiles</h2>
         <div style='text-align:center;'>
             <a href='https://github.com/miligp' target='_blank' 
@@ -166,4 +192,6 @@ def show_page():
         <p style='text-align:center; color:var(--text-color); font-size:14px; font-style:italic;'>
             Projet réalisé dans le cadre du module <b>Machine Learning</b> — Master SISE, Université Lumière Lyon 2 (2025)
         </p>
-    """, unsafe_allow_html=True)
+    """,
+        unsafe_allow_html=True,
+    )
