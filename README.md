@@ -8,8 +8,10 @@ Dashboard interactif de prédiction et visualisation de la performance énergét
 
 ## Aperçu
 
-![Page Contexte](docs/Eval1.jpg)
-![Page Prédiction](docs/Eval2.jpg)
+![Page Contexte](docs/contexte.jpg)
+![Page Analyse](docs/analyse.jpg)
+![Page Cartographie](docs/Eval1.jpg)
+
 
 ---
 
