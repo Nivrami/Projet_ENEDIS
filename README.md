@@ -8,9 +8,9 @@ Dashboard interactif de prédiction et visualisation de la performance énergét
 
 ## Aperçu
 
-![Page Contexte](docs/contexte.jpg)
-![Page Analyse](docs/analyse.jpg)
-![Page Cartographie](docs/Eval1.jpg)
+![Page Contexte](docs/contexte.png)
+![Page Analyse](docs/analyse.png)
+![Page Cartographie](docs/cartographie.png)
 
 
 ---
