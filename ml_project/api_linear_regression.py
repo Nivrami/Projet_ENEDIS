@@ -15,8 +15,6 @@ Data_OHE_Boolean = [
     "etiquette_dpe",
     "periode_construction",
     "nombre_appartement_cat",
-    "type_batiment_immeuble",
-    "type_batiment_maison",
     "type_energie_principale_chauffage_Charbon",
     "type_energie_principale_chauffage_Fioul",
     "type_energie_principale_chauffage_Gaz (GPL/Propane/Butane)",
@@ -67,7 +65,7 @@ Nombre_App_Mapping = {
 
 app = Flask(__name__)
 
-# Définition des chemins absolus (Méthode robuste avec pathlib)
+# Définition des chemins absolus 
 Current_DIR = pathlib.Path(__file__).parent
 Models_DIR = Current_DIR / "models"
 Model_PATH = Models_DIR / "lr_model.pkl"
