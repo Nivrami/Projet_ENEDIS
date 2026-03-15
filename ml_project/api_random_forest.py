@@ -27,7 +27,7 @@ FEATURE_COLUMNS = []
 # --- DÉFINITION DU PRÉ-TRAITEMENT (CRITIQUE) ---
 
 ORDINAL_CATEGORIES = {
-    "qualite_isolation_murs": ["insuffisante", "moyenne", "bonne", "très bonne"],
+    "qualite_isolation_murs": ["Insuffisante", "Moyenne", "bonne", "tres bonne"],
     "nombre_appartement_cat": [
         "Maison(Unitaire ou 2 à 3 logements)",
         "Petit Collectif(4 à 9 logements)",
