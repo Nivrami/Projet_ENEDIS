@@ -32,6 +32,12 @@ cache/
 # Logs
 *.log
 
+# Historique prédictions (généré dynamiquement)
+historique_predictions.csv
+
 # System
 .DS_Store
 Thumbs.db
+
+# IDE
+.vscode/

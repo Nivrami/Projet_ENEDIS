@@ -278,7 +278,7 @@ def show_page():
         )
         qualite_isolation_murs = st.selectbox(
             "Qualité de l'isolation des murs :",
-            ["Insuffisante", "Moyenne", "bonne", "très bonne"],
+            ["insuffisante", "moyenne", "bonne", "très bonne"],
         )
         logement = st.selectbox("Âge du bâtiment :", ["Neuf", "Ancien"])
 
