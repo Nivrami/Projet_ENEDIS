@@ -72,9 +72,27 @@ Puis ouvrir [http://localhost:8501](http://localhost:8501).
 
 ---
 
+
 ## Modèles
 
-Les fichiers modèles (`.pkl`, `.joblib`) ne sont pas versionnés. Les placer dans `ml_project/models/` avant de lancer l'application.
+- **Régression linéaire** (consommation) : modèle, imputer et scaler sont inclus dans `ml_project/models/`.
+- **Random Forest** (étiquette DPE, 152 Mo) : trop lourd pour le dépôt, il est disponible dans la
+  [release v1.0](https://github.com/Nivrami/Projet_ENEDIS/releases/tag/v1.0). Le télécharger dans `ml_project/models/` :
+
+```bash
+curl -L -o ml_project/models/random_forest_dpe_final_weighted.joblib \
+  https://github.com/Nivrami/Projet_ENEDIS/releases/download/v1.0/random_forest_dpe_final_weighted.joblib
+```
+
+### Réentraîner le Random Forest
+
+1. Exécuter `notebooks/02_prediction_etiquette.ipynb`, qui produit `ml_project/data/donnees_ml_preparees.csv`.
+2. Lancer `python ml_project/training/entrainement_random_forest.py`.
+
+**Fuite de données évitée :** les variables de consommation et de coût (`conso_5_usages_ef`, `cout_total_5_usages` et leurs
+variantes `_energie_n1`) servent au calcul de l'étiquette DPE elle-même. Avec elles, le modèle atteint un F1 de 0,94,
+un score artificiellement élevé. Le modèle final les exclut et obtient un **F1 pondéré de 0,75**
+(moyenne sur 10 entraînements, écart-type 0,0003).
 
 ---
 
@@ -98,7 +116,8 @@ Projet_ENEDIS/
     ├── start_app.py               # Script de démarrage
     ├── requirements.txt
     ├── Dockerfile
-    ├── models/                    # Modèles ML (non versionnés)
+    ├── models/                    # Modèles ML (Random Forest : voir la release v1.0)
+    ├── training/                  # Scripts d'entraînement du Random Forest
     ├── data/                      # Données (non versionnées)
     ├── img/
     └── views/                     # Pages Streamlit
