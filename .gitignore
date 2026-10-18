@@ -35,4 +35,6 @@ cache/
 # System
 .DS_Store
 Thumbs.db
+
+# Editeur
 .vscode/
