@@ -1,5 +1,7 @@
 # Projet_ENEDIS — EcoScan Dashboard
 
+![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white) ![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?logo=scikitlearn&logoColor=white) ![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?logo=streamlit&logoColor=white) ![Flask](https://img.shields.io/badge/Flask-000000?logo=flask&logoColor=white) ![Plotly](https://img.shields.io/badge/Plotly-3F4F75?logo=plotly&logoColor=white) ![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)
+
 Dashboard interactif de prédiction et visualisation de la performance énergétique des logements français (DPE).
 
 > Projet réalisé dans le cadre du Master 2 SISE (Statistique et Informatique pour la Science des données).
